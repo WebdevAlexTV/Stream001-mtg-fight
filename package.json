@@ -2,10 +2,17 @@
   "name": "mtg-fight",
   "version": "1.0.0",
   "description": "Small mtg fight game for twitch chat",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "WebdevAlex",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tmi.js": "^1.8.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.41.1",
+    "webpack-cli": "^4.7.2"
+  }
 }
