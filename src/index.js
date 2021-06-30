@@ -1,5 +1,6 @@
 import {Client} from "tmi.js";
 import commands from "./commands";
+import Participant from "./participant";
 
 const client = new Client({
 	channels: [ 'webdevalex' ]
@@ -10,6 +11,8 @@ client.connect();
 let fightModeActive = false;
 let participants = [];
 let cards = [];
+
+const participantsContainer = document.getElementById("participants");
 
 client.on('message', (channel, tags, message, self) => {
 
@@ -24,6 +27,7 @@ client.on('message', (channel, tags, message, self) => {
             fightModeActive = true; 
             participants = [];
             loadMagicCards();
+            setParticipantsContainerInnerHtml("Arena is open. Waiting for some brave warriors!");
         }
 
         // End fight
@@ -36,11 +40,13 @@ client.on('message', (channel, tags, message, self) => {
 
     // Participate
     if(fightModeActive && message === commands.participate) {
-        if (participants.filter(item => item.username === tags.username).length === 0) {
-            participants.push({
-                username: tags.username,
-                card: getRandomMagicCard()
-            });
+        if (1==1 || participants.filter(item => item.username === tags.username).length === 0) {
+            if(participants.length === 0) {
+                setParticipantsContainerInnerHtml("");
+            }
+            const participant = new Participant(tags.username, getRandomMagicCard());
+            participants.push(participant);
+            participantsContainer.appendChild(participant.getWaitingElement());
             console.log(tags.username, "participated");
         } else {
             console.log(tags.username, "tried to participate but is already in the fight!");
@@ -103,42 +109,19 @@ const handleFight = () => {
     // Mark the winner users
     participants = participants.map(participant => {
         if(participant.card.cmc === highstestCmc) {
-            participant.winner = true;
+            participant.setWinner();
         }
         return participant;
     });
 
-    const participantsElement = document.getElementById("participants");
-    participantsElement.innerHTML = "";
+    setParticipantsContainerInnerHtml("");
 
     // Add the participants to the dom
     participants.forEach(participant => {
-        const participantElement = document.createElement("div");
-        participantElement.classList.add("participant");
-
-        const nameElement = document.createElement("div");
-        nameElement.classList.add("participant-name");
-        nameElement.innerText = participant.username;
-        participantElement.appendChild(nameElement);
-
-        if(participant.winner) {
-            const winnerElement = document.createElement("div");
-            winnerElement.classList.add("participant-winner");
-            winnerElement.innerText = "👑";
-            participantElement.appendChild(winnerElement);
-        }
-
-        const cmcElement = document.createElement("div");
-        cmcElement.classList.add("participant-cmc");
-        cmcElement.innerText = participant.card.cmc;
-        participantElement.appendChild(cmcElement);
-
-        const imageElement = document.createElement("img");
-        imageElement.classList.add("participant-image")
-        imageElement.src = participant.card.image;
-        participantElement.appendChild(imageElement);
-
-        participantsElement.appendChild(participantElement);
+        participantsContainer.appendChild(participant.getCardElement());
     });
+}
 
+const setParticipantsContainerInnerHtml = (content) => {
+    participantsContainer.innerHTML = content;
 }

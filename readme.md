@@ -17,14 +17,19 @@ Wir bauen ein kleines Twitch Chat Game. Dabei werden den Usern zufällige Magick
 
 ## Todo
 
-- [ ] Anbindung von tmi.js
-- [ ] Implementierung der Commands
-  - [ ] !mtg-fight-start (startet die Runde)
-  - [ ] !mtg-fight-end (beendet die Runde)
-  - [ ] Nur Ich darf die Runden starten und beenden
-  - [ ] !mtg-fight (User nimmt an Runde teil)
-- [ ] Anbindung von MTG Api Endpunkt (https://docs.magicthegathering.io/#api_v1cards_list)
-- [ ] Abrufen von 100 zufälligen Karten
-- [ ] Einem User eine zufällige Karte zuweisen, wenn dieser teilnimmt
-- [ ] Auswerten, welcher User gewinnt
+- [x] Anbindung von tmi.js
+- [x] Implementierung der Commands
+  - [x] !mtg-fight-start (startet die Runde)
+  - [x] !mtg-fight-end (beendet die Runde)
+  - [x] Nur Ich und Mods dürfen die Runden starten und beenden
+  - [x] !mtg-fight (User nimmt an Runde teil)
+- [x] Anbindung von MTG Api Endpunkt (https://docs.magicthegathering.io/#api_v1cards_list)
+- [x] Abrufen von 100 zufälligen Karten
+- [x] Einem User eine zufällige Karte zuweisen, wenn dieser teilnimmt
+- [x] Auswerten, welcher User gewinnt
+
+- [x] Teilnehmer anzeigen (bevor Kampf abgeschlossen wird)
 - [ ] Erzeugen einer Highscore (nur temporär)
+- [ ] Design etwas verbessern
+- [ ] Code aufräumen
+- [ ] Auf surge.sh deployen
